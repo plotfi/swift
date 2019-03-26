@@ -1,9 +1,4 @@
 // RUN: %target-swift-emit-silgen -sanitize=thread %s | %FileCheck %s
-// REQUIRES: tsan_runtime
-
-// FIXME: This should be covered by "tsan_runtime"; older versions of Apple OSs
-// don't support TSan.
-// UNSUPPORTED: remote_run
 
 func takesInout(_ p: inout Int) { }
 func takesInout(_ p: inout MyStruct) { }
