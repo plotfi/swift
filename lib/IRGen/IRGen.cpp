@@ -246,6 +246,13 @@ void swift::performLLVMOptimizations(const IRGenOptions &Opts,
     PMBuilder.addExtension(PassManagerBuilder::EP_EnabledOnOptLevel0,
                            addSanitizerCoveragePass);
   }
+
+  PMBuilder.addExtension(
+      PassManagerBuilder::EP_OptimizerLast,
+      [&](const PassManagerBuilder &Builder, PassManagerBase &PM) {
+        PM.add(createSwiftDiagnosticsPass());
+      });
+
   if (RunSwiftSpecificLLVMOptzns) {
     PMBuilder.addExtension(PassManagerBuilder::EP_OptimizerLast,
       [&](const PassManagerBuilder &Builder, PassManagerBase &PM) {
